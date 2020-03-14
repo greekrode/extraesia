@@ -13,7 +13,11 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
+fixtures = [
 
+	{"doctype":"Custom Field", "filters": [["_user_tags", "like", ("%extraesia%")]]}
+
+]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/extraesia/css/extraesia.css"
 # app_include_js = "/assets/extraesia/js/extraesia.js"
@@ -84,9 +88,15 @@ doctype_list_js = {"Item" : "public/js/list_view.js"}
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
-#	}
+# 	}
 # }
 
+doc_events = {
+	"Stock Ledger Entry": {
+		"after_insert": "extraesia.item.set_item_balance",
+		
+	}
+}
 # Scheduled Tasks
 # ---------------
 
