@@ -95,7 +95,11 @@ doc_events = {
 	"Stock Ledger Entry": {
 		"after_insert": "extraesia.item.set_item_balance",
 		
-	}
+	},
+    "Sales Order": {
+		"validate": "extraesia.slaes_order.validate_items_stock_level",
+		
+	},
 }
 # Scheduled Tasks
 # ---------------
