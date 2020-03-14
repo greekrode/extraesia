@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include extraesia *.css
+recursive-include extraesia *.csv
+recursive-include extraesia *.html
+recursive-include extraesia *.ico
+recursive-include extraesia *.js
+recursive-include extraesia *.json
+recursive-include extraesia *.md
+recursive-include extraesia *.png
+recursive-include extraesia *.py
+recursive-include extraesia *.svg
+recursive-include extraesia *.txt
+recursive-exclude extraesia *.pyc
