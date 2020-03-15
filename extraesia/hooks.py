@@ -94,11 +94,13 @@ doctype_list_js = {"Item" : "public/js/list_view.js"}
 doc_events = {
 	"Stock Ledger Entry": {
 		"after_insert": "extraesia.item.set_item_balance",
+		"on_trash": "extraesia.item.set_item_balance_on_delete",
 		
 	},
     "Sales Order": {
 		"validate": "extraesia.slaes_order.validate_items_stock_level",
 		"on_submit": "extraesia.item.set_item_available_qty",
+		"on_cancel": "extraesia.item.set_item_available_qty",
 	},
 }
 # Scheduled Tasks
