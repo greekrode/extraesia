@@ -5,6 +5,9 @@ from erpnext.stock.dashboard.item_dashboard import get_data
 
 
 def validate_items_stock_level(doc,method):
+    settings = frappe.get_single("Extraesia Settings")
+    if not settings.sales_order_items_validation:
+        return
     for item in doc.items:
         item_data = get_data(item.item_code)
         for data in item_data:

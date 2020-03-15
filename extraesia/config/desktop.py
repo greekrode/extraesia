@@ -7,7 +7,8 @@ def get_data():
 		{
 			"module_name": "Extraesia",
 			"color": "grey",
-			"icon": "octicon octicon-file-directory",
+			"category": "Administration",
+			"icon": "fa fa-cogs",
 			"type": "module",
 			"label": _("Extraesia")
 		}

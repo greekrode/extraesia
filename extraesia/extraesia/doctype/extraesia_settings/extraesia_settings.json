@@ -1,0 +1,45 @@
+{
+ "creation": "2020-03-15 20:42:47.288428",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_order_section",
+  "sales_order_items_validation"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_order_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "sales_order_items_validation",
+   "fieldtype": "Check",
+   "label": "Allow Items Stock Level Validation"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-03-15 20:43:15.727919",
+ "modified_by": "Administrator",
+ "module": "Extraesia",
+ "name": "Extraesia Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
