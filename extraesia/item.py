@@ -6,7 +6,7 @@ from erpnext.stock.dashboard.item_dashboard import get_data
 
 
 def set_item_balance(doc,method):
-    balance = get_item_balance(doc.item_code) + doc.actual_qty
+    balance = get_item_balance(doc.item_code) or 0 + doc.actual_qty or 0
     frappe.db.set_value("Item",doc.item_code,"balance",balance)
     frappe.db.set_value("Item",doc.item_code,"available_qty",get_item_available_qty(doc.item_code) + doc.actual_qty)
 
