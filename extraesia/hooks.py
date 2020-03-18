@@ -95,7 +95,9 @@ doc_events = {
 	"Stock Ledger Entry": {
 		"after_insert": "extraesia.item.set_item_balance",
 		"on_trash": "extraesia.item.set_item_balance_on_delete",
-		
+	},
+	"Stock Reconciliation": {
+		"on_cancel": "extraesia.item.set_item_balance_after_delete_stock_reconciliation",	
 	},
     "Sales Order": {
 		"validate": "extraesia.slaes_order.validate_items_stock_level",
