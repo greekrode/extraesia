@@ -14,7 +14,15 @@ def set_item_balance(doc,method):
     else:
         balance +=  doc.actual_qty
         frappe.db.set_value("Item",doc.item_code,"balance",balance)
-        frappe.db.set_value("Item",doc.item_code,"available_qty",get_item_available_qty(doc.item_code) + doc.actual_qty)
+        if doc.actual_qty > 0 and doc.voucher_type == "Stock Entry":
+            stock_entry_type = frappe.db.get_value("Stock Entry",doc.voucher_no,"stock_entry_type")
+            work_order = frappe.db.get_value("Stock Entry",doc.voucher_no,"work_order")
+            if stock_entry_type == "Manufacture" and work_order:
+                frappe.db.set_value("Item",doc.item_code,"available_qty",get_item_available_qty(doc.item_code))
+            else:
+                frappe.db.set_value("Item",doc.item_code,"available_qty",get_item_available_qty(doc.item_code) + doc.actual_qty)
+        else:
+            frappe.db.set_value("Item",doc.item_code,"available_qty",get_item_available_qty(doc.item_code) + doc.actual_qty)
 
 def set_item_balance_on_delete(doc,method):
     balance = get_item_balance(doc.item_code) or 0
