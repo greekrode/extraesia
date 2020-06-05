@@ -2,7 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Extraesia Settings', {
-	// refresh: function(frm) {
-
-	// }
+	recalculate_items_balance: function(frm) {
+		frappe.call({
+			method: 'extraesia.item.recalculate_items_balance',
+			callback: function(r) {
+				if (!r.exc) {
+					frappe.msgprint(r.message);
+					// console.log(r.message);
+				}
+			}
+		});
+	}
 });

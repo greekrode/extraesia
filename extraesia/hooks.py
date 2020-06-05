@@ -108,13 +108,13 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"extraesia.tasks.all"
 # 	],
-# 	"daily": [
-# 		"extraesia.tasks.daily"
-# 	],
+	"daily": [
+		"extraesia.item.recalculate_items_balance"
+	],
 # 	"hourly": [
 # 		"extraesia.tasks.hourly"
 # 	],
@@ -124,7 +124,7 @@ doc_events = {
 # 	"monthly": [
 # 		"extraesia.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------

@@ -24,6 +24,7 @@ def set_item_balance(doc,method):
         else:
             frappe.db.set_value("Item",doc.item_code,"available_qty",get_item_available_qty(doc.item_code) + doc.actual_qty)
 
+
 def set_item_balance_on_delete(doc,method):
     balance = get_item_balance(doc.item_code) or 0
     balance += doc.actual_qty
@@ -55,3 +56,15 @@ def get_item_available_qty(item):
     for data in item_data:
         item_available_qty += data["projected_qty"]
     return item_available_qty
+
+
+
+@frappe.whitelist()
+def recalculate_items_balance():
+    items = frappe.get_all("Item")
+    for item in items:
+        frappe.db.set_value("Item",item.name,"balance",get_latest_stock_qty(item.name) or 0)
+        frappe.db.set_value("Item",item.name,"available_qty",get_item_available_qty(item.name) or 0)
+
+
+    return "Recalculate Items Balance is Done"
