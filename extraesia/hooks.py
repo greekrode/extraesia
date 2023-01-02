@@ -15,7 +15,8 @@ app_license = "MIT"
 # ------------------
 fixtures = [
 
-	{"doctype":"Custom Field", "filters": [["_user_tags", "like", ("%extraesia%")]]}
+    {"doctype": "Custom Field", "filters": [
+        ["_user_tags", "like", ("%extraesia%")]]}
 
 ]
 # include js, css files in header of desk.html
@@ -31,7 +32,7 @@ fixtures = [
 
 # include js in doctype views
 # doctype_js = {"Item" : "public/js/list_view.js"}
-doctype_list_js = {"Item" : "public/js/list_view.js"}
+doctype_list_js = {"Item": "public/js/list_view.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -43,7 +44,7 @@ doctype_list_js = {"Item" : "public/js/list_view.js"}
 
 # website user home page (by Role)
 # role_home_page = {
-#	"Role": "home_page"
+# "Role": "home_page"
 # }
 
 # Website user home page (by function)
@@ -92,38 +93,42 @@ doctype_list_js = {"Item" : "public/js/list_view.js"}
 # }
 
 doc_events = {
-	"Stock Ledger Entry": {
-		"after_insert": "extraesia.item.set_item_balance",
-		"on_trash": "extraesia.item.set_item_balance_on_delete",
-	},
-	"Stock Reconciliation": {
-		"on_cancel": "extraesia.item.set_item_balance_after_delete_stock_reconciliation",	
-	},
+    "Stock Ledger Entry": {
+        "after_insert": "extraesia.item.set_item_qty_on_hand",
+        "on_trash": "extraesia.item.set_item_qty_on_hand_on_delete",
+    },
+    "Stock Reconciliation": {
+        "on_cancel": "extraesia.item.set_item_qty_on_hand_after_delete_stock_reconciliation",
+    },
     "Sales Order": {
-		"validate": "extraesia.slaes_order.validate_items_stock_level",
-		"on_submit": "extraesia.item.set_item_available_qty",
-		"on_cancel": "extraesia.item.set_item_available_qty",
-	},
+        "validate": "extraesia.sales_order_validation.validate_items_stock_level",
+        "on_submit": "extraesia.item.set_item_available_qty",
+        "on_cancel": "extraesia.item.set_item_available_qty",
+    },
+    "Item Price": {
+        "on_update": "extraesia.item.update_item_price",
+        "on_submit": "extraesia.item.update_item_price"
+    }
 }
 # Scheduled Tasks
 # ---------------
 
 scheduler_events = {
-# 	"all": [
-# 		"extraesia.tasks.all"
-# 	],
-	"daily": [
-		"extraesia.item.recalculate_items_balance"
-	],
-# 	"hourly": [
-# 		"extraesia.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"extraesia.tasks.weekly"
-# 	]
-# 	"monthly": [
-# 		"extraesia.tasks.monthly"
-# 	]
+    # 	"all": [
+    # 		"extraesia.tasks.all"
+    # 	],
+    "daily": [
+        "extraesia.item.recalculate_item_qty_on_hand"
+    ],
+    # 	"hourly": [
+    # 		"extraesia.tasks.hourly"
+    # 	],
+    # 	"weekly": [
+    # 		"extraesia.tasks.weekly"
+    # 	]
+    # 	"monthly": [
+    # 		"extraesia.tasks.monthly"
+    # 	]
 }
 
 # Testing
@@ -144,4 +149,3 @@ scheduler_events = {
 # override_doctype_dashboards = {
 # 	"Task": "extraesia.task.get_dashboard_data"
 # }
-

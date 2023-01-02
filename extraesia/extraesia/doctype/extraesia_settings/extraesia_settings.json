@@ -1,57 +1,81 @@
 {
- "creation": "2020-03-15 20:42:47.288428",
- "doctype": "DocType",
- "editable_grid": 1,
- "engine": "InnoDB",
- "field_order": [
-  "sales_order_section",
-  "sales_order_items_validation",
-  "items_section",
-  "recalculate_items_balance"
- ],
- "fields": [
-  {
-   "fieldname": "sales_order_section",
-   "fieldtype": "Section Break",
-   "label": "Sales Order"
-  },
-  {
-   "default": "0",
-   "fieldname": "sales_order_items_validation",
-   "fieldtype": "Check",
-   "label": "Allow Items Stock Level Validation"
-  },
-  {
-   "fieldname": "items_section",
-   "fieldtype": "Section Break",
-   "label": "Items"
-  },
-  {
-   "fieldname": "recalculate_items_balance",
-   "fieldtype": "Button",
-   "label": "Recalculate Items Balance"
-  }
- ],
- "issingle": 1,
- "modified": "2020-06-05 19:58:14.407724",
- "modified_by": "Administrator",
- "module": "Extraesia",
- "name": "Extraesia Settings",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "print": 1,
-   "read": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
- "quick_entry": 1,
- "sort_field": "modified",
- "sort_order": "DESC",
- "track_changes": 1
+  "creation": "2020-03-15 20:42:47.288428",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "item_stock_section",
+    "calculate_item_stock_level",
+    "recalculate_item_qty_on_hand",
+    "item_price_list_section",
+    "item_show_price",
+    "price_list",
+    "set_item_price"
+  ],
+  "fields": [
+    {
+      "fieldname": "item_stock_section",
+      "fieldtype": "Section Break",
+      "label": "Item Stock"
+    },
+    {
+      "default": "0",
+      "fieldname": "calculate_item_stock_level",
+      "fieldtype": "Check",
+      "label": "Calculate Item Stock Level (Available Qty & Qty On Hand)"
+    },
+    {
+      "fieldname": "recalculate_item_qty_on_hand",
+      "fieldtype": "Button",
+      "label": "Recalculate Items Qty On Hand",
+      "hidden": 1
+    },
+    {
+      "fieldname": "item_price_list_section",
+      "fieldtype": "Section Break",
+      "label": "Item Price List"
+    },
+    {
+      "default": "0",
+      "fieldname": "item_show_price",
+      "fieldtype": "Check",
+      "label": "Show Item Price"
+    },
+    {
+      "fieldname": "price_list",
+      "fieldtype": "Link",
+      "label": "Price List",
+      "options": "Price List",
+      "reqd": 0,
+      "hidden": 1
+    },
+    {
+      "fieldname": "set_item_price",
+      "fieldtype": "Button",
+      "label": "Set Item Price Based on Price List",
+      "hidden": 1
+    }
+  ],
+  "issingle": 1,
+  "modified": "2022-12-27 10:11:20.000000",
+  "modified_by": "Administrator",
+  "module": "Extraesia",
+  "name": "Extraesia Settings",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "print": 1,
+      "read": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "quick_entry": 1,
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "track_changes": 1
 }

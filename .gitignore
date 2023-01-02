@@ -4,3 +4,4 @@
 *.swp
 tags
 extraesia/docs/current
+extraesia/templates/pages/__pycache__
