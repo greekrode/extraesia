@@ -118,7 +118,8 @@ scheduler_events = {
     # 		"extraesia.tasks.all"
     # 	],
     "daily": [
-        "extraesia.item.recalculate_item_qty_on_hand"
+        "extraesia.item.recalculate_item_qty_on_hand",
+        "extraesia.item.set_item_price"
     ],
     # 	"hourly": [
     # 		"extraesia.tasks.hourly"
@@ -139,9 +140,9 @@ scheduler_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "extraesia.event.get_events"
-# }
+override_whitelisted_methods = {
+	"frappe.desk.reportview.get": "extraesia.item.get_reportview"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,

@@ -2,7 +2,11 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 from erpnext.stock.utils import get_latest_stock_qty
-from frappe.utils import getdate, today
+from frappe.utils import getdate, today, fmt_money
+from extraesia.list_view import get_form_params_override
+from frappe.model.db_query import DatabaseQuery
+from frappe.desk.reportview import get
+
 
 def set_item_qty_on_hand(doc, method):
     qty_on_hand = get_item_qty_on_hand(doc.item_code) or 0
@@ -83,9 +87,9 @@ def get_item_price(item, price_list):
         item_code=item, price_list=price_list)
 
     price_list_data = frappe.db.sql("""
-        SELECT price_list_rate as price_list_rate, valid_from, valid_upto
-        FROM `tabItem Price` 
-            {conditions} order by modified asc""".format(conditions=conditions), condition_data_dict)
+		SELECT price_list_rate as price_list_rate, valid_from, valid_upto
+		FROM `tabItem Price`
+			{conditions} order by modified asc""".format(conditions=conditions), condition_data_dict)
 
     price_list = 0
     for pl in price_list_data:
@@ -96,23 +100,67 @@ def get_item_price(item, price_list):
             if valid_from <= getdate(today()) and valid_to >= getdate(today()):
                 price_list = pl[0]
         elif valid_from <= getdate(today()):
-                price_list = pl[0]
-    
+            price_list = pl[0]
+
     return price_list
+
 
 def update_item_price(doc, method):
     settings = frappe.get_single("Extraesia Settings")
     if not settings.item_show_price:
-        return 
+        return
 
     if settings.price_list != doc.price_list:
         return
 
     if doc.valid_upto is not None:
         if getdate(doc.valid_from) <= getdate(today()) and getdate(doc.valid_to) >= getdate(today()):
-            frappe.db.set_value("Item", doc.item_code, "item_price", doc.price_list_rate)
+            frappe.db.set_value("Item", doc.item_code,
+                                "item_price", doc.price_list_rate)
     elif getdate(doc.valid_from) <= getdate(today()):
-            frappe.db.set_value("Item", doc.item_code, "item_price", doc.price_list_rate)
+        frappe.db.set_value("Item", doc.item_code,
+                            "item_price", doc.price_list_rate)
+
+
+@frappe.whitelist()
+def get_reportview():
+    args = get_form_params_override()
+    if args.doctype != "Item":
+        return get()
+    data = compress(execute(**args), args=args)
+
+    return data
+
+
+def execute(doctype, *args, **kwargs):
+    return DatabaseQuery(doctype).execute(*args, **kwargs)
+
+
+def compress(data, args=None):
+    """separate keys and values"""
+    from frappe.desk.query_report import add_total_row
+
+    if not data:
+        return data
+    if args is None:
+        args = {}
+    values = []
+    keys = list(data[0])
+    for row in data:
+        new_row = []
+        for key in keys:
+            new_row.append(fmt_money(row.get(key), 0) if key ==
+                           "item_price" else row.get(key))
+        values.append(new_row)
+
+    if args.get("add_total_row"):
+        meta = frappe.get_meta(args.doctype)
+        values = add_total_row(values, keys, meta)
+
+    return {
+        "keys": keys,
+        "values": values
+    }
 
 
 @ frappe.whitelist()
